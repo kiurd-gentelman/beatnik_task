@@ -3,11 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Http\ViewComposers\DetailsBannerComposer;
 
-class AppServiceProvider extends ServiceProvider
+class DetailsBannerServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      *
      * @return void
      */
@@ -17,12 +18,15 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      *
      * @return void
      */
     public function boot()
     {
-
+        view()->composer(
+            '*',
+            DetailsBannerComposer::class
+        );
     }
 }

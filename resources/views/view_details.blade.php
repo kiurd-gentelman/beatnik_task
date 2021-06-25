@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+        crossorigin="anonymous"
+    />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
+    <!--    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>-->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/slick.css')}}" />
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/slick-theme.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}" />
+    <style>
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial;
+        }
+
+        header {
+            color: #888;
+        }
+
+        header h1 {
+            font-size: 32px;
+        }
+        /* .container {
+        max-width: 700px;
+        margin: 0 auto;
+    } */
+
+        #content {
+            /* border: 2px dotted green; */
+            padding: 18px;
+            /* margin-left: 215px; */
+            min-height: 2000px;
+            color: darkgrey;
+        }
+
+        #sidebar {
+            float: left;
+            /* width: 200px; */
+            color: #ffbdbd;
+            will-change: min-height;
+        }
+
+        #sidebar .sidebar__inner {
+            /* border: 2px dotted red; */
+            padding: 10px;
+            position: relative;
+            transform: translate(0, 0);
+            transform: translate3d(0, 0, 0);
+            will-change: position, transform;
+        }
+        /* footer {
+        height: 300px;
+        height: 85vh;
+        border: 2px dotted black;
+        margin-top: 20px;
+        text-align: center;
+        color: #8e8d8d;
+        line-height: 300px;
+        line-height: 95vh;
+        background: rgba(0, 0, 0, 0.02);
+    }
+
+    footer p {
+        margin: 0;
+    } */
+
+        .clearfix:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <div
+            class="collapse navbar-collapse"
+            id="navbarSupportedContent"
+        >
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('welcome')}}"
+                    >Home <span class="sr-only">(current)</span></a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header>
+    <div class="container">
+        <h1>Site Title</h1>
+    </div>
+</header>
+
+@if($details_banner)
+<div class="w-100">
+    <p
+        class="
+                    custom-offer-badge
+                    d-flex
+                    align-items-center
+                    justify-content-center
+                "
+        id="custom-offer-badge"
+    >
+        Get 3% Daily Cash back with Apple Card. And pay for your new
+        Apple Watch over 24 months, interest‑free when you choose Apple
+        Card Monthly Installments.*
+        <a href="#">Learn more></a> <i class="fab fa-500px"></i>
+    </p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="sidebar">
+                <div class="sidebar__inner">
+                    <img
+                        src="{{Storage::url($product->image)}}"
+                        style="width: 100%"
+                    />
+                    <div class="mt-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                Free no-contact delivery
+                            </div>
+                            <div class="col-md-4">
+                                Apple Fitness+ free for 3 months when
+                                you buy an Apple Watch**
+                            </div>
+                            <div class="col-md-4">
+                                Free Personal Session
+                            </div>
+                        </div>
+                        <hr />
+                        <div>
+                            <p>
+                                Have questions about buying an Apple
+                                Watch? Chat with an Apple Watch
+                                Specialist
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="content">
+                <h1>{{$product->name}}</h1>
+
+                <h4>category:{{$product->category->name}}</h4>
+
+                <h3 class="mt-5">Attribute</h3>
+                <div class="mt-2">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>value</th>
+                            <th>name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ( json_decode($product->attribute_name , true) as $item)
+                            <tr>
+                                <td>{{$item}}</td>
+                                <td>{{json_decode($product->attribute_value, true)[$item]}}</td>
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+                <h3 class="mt-5">Description</h3>
+                <div>
+
+                    {{$product->description}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="text-center">
+        <h1>A closer look at Apple Watch Series 6.</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-5 ">
+            <div class="bg-light rounded m-1" >
+                <h1 class="text-center">{{$v0[0]['content']}}</h1>
+                <div class="d-flex justify-content-center align-items-center">
+                    <img src="{{Storage::url($v0[0]['image'])}}" alt=""/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7 ">
+            <div class="bg-light rounded m-1">
+                <h1 class="text-center">{{$v1[0]['content']}}</h1>
+                <div>
+                    <img src="{{Storage::url($v1[0]['image'])}}" alt=""/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 ">
+            <div class="bg-light rounded m-1">
+                <h1 class="text-center">{{$v2[0]['content']}}</h1>
+                <div>
+                    <img src="{{Storage::url($v2[0]['image'])}}" alt=""/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 ">
+            <div class="bg-light rounded m-1">
+                <h1 class="text-center">{{$v3[0]['content']}}</h1>
+                <div class="d-flex justify-content-center align-items-center">
+                    <img src="{{Storage::url($v3[0]['image'])}}" alt=""/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h1>A closer look at Apple Watch Series 6.</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-5 ">
+            <div class="bg-light rounded m-1" >
+                <h1 class="text-center">Lorem ipsum dolor</h1>
+                <div
+                    class="d-flex justify-content-center align-items-center"
+                >
+                    <img
+                        src="https://fossil.scene7.com/is/image/FossilPartners/FS5305_main?$sfcc_fos_medium$"
+                        alt=""
+                    />
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-7 ">
+            <div class="bg-light rounded m-1">
+                <h1 class="text-center">Lorem ipsum dolor</h1>
+                <div>
+                    <img
+                        src="https://thumbs.dreamstime.com/b/demo-text-businessman-dark-vintage-background-108609906.jpg"
+                        alt=""
+                    />
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-7 ">
+            <div class="bg-light rounded m-1"><h1 class="text-center">Lorem ipsum dolor</h1>
+                <div>
+                    <img
+                        src="https://thumbs.dreamstime.com/b/demo-text-businessman-dark-vintage-background-108609906.jpg"
+                        alt=""
+                    />
+                </div></div>
+
+        </div>
+        <div class="col-md-5 ">
+            <div class="bg-light rounded m-1">
+                <h1 class="text-center">Lorem ipsum dolor</h1>
+                <div
+                    class="d-flex justify-content-center align-items-center"
+                >
+                    <img
+                        src="https://fossil.scene7.com/is/image/FossilPartners/FS5305_main?$sfcc_fos_medium$"
+                        alt=""
+                    />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@else
+    Please go for create Category and product and all banner otherwise page gives some warning!!
+    <a href="{{route('home')}}" class="text-danger">Got to admin</a>
+@endif
+<footer class="footer-area footer--light mt-4">
+    <div class="footer-big">
+        <!-- start .container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="footer-widget">
+                        <div class="widget-about">
+                            <img
+                                src="http://placehold.it/250x80"
+                                alt=""
+                                class="img-fluid"
+                            />
+                            <p>
+                                Что если тут написать другой текст на
+                                русском языке, для проверки шрифта Rubik
+                                )
+                            </p>
+                            <ul class="contact-details">
+                                <li>
+                                    <span class="icon-earphones"></span>
+                                    Call Us:
+                                    <a href="tel:344-755-111"
+                                    >344-755-111</a
+                                    >
+                                </li>
+                                <li>
+                                            <span
+                                                class="icon-envelope-open"
+                                            ></span>
+                                    <a
+                                        href="mailto:support@aazztech.com"
+                                    >support@aazztech.com</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Ends: .footer-widget -->
+                </div>
+                <!-- end /.col-md-4 -->
+                <div class="col-md-3 col-sm-4">
+                    <div class="footer-widget">
+                        <div class="footer-menu footer-menu--1">
+                            <h4 class="footer-widget-title">
+                                Popular Category
+                            </h4>
+                            <ul>
+                                <li>
+                                    <a href="#">Wordpress</a>
+                                </li>
+                                <li>
+                                    <a href="#">Plugins</a>
+                                </li>
+                                <li>
+                                    <a href="#">Joomla Template</a>
+                                </li>
+                                <li>
+                                    <a href="#">Admin Template</a>
+                                </li>
+                                <li>
+                                    <a href="#">HTML Template</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- end /.footer-menu -->
+                    </div>
+                    <!-- Ends: .footer-widget -->
+                </div>
+                <!-- end /.col-md-3 -->
+
+                <div class="col-md-3 col-sm-4">
+                    <div class="footer-widget">
+                        <div class="footer-menu">
+                            <h4 class="footer-widget-title">
+                                Our Company
+                            </h4>
+                            <ul>
+                                <li>
+                                    <a href="#">About Us</a>
+                                </li>
+                                <li>
+                                    <a href="#">How It Works</a>
+                                </li>
+                                <li>
+                                    <a href="#">Affiliates</a>
+                                </li>
+                                <li>
+                                    <a href="#">Testimonials</a>
+                                </li>
+                                <li>
+                                    <a href="#">Contact Us</a>
+                                </li>
+                                <li>
+                                    <a href="#">Plan &amp; Pricing</a>
+                                </li>
+                                <li>
+                                    <a href="#">Blog</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- end /.footer-menu -->
+                    </div>
+                    <!-- Ends: .footer-widget -->
+                </div>
+                <!-- end /.col-lg-3 -->
+
+                <div class="col-md-3 col-sm-4">
+                    <div class="footer-widget">
+                        <div class="footer-menu no-padding">
+                            <h4 class="footer-widget-title">
+                                Help Support
+                            </h4>
+                            <ul>
+                                <li>
+                                    <a href="#">Support Forum</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                    >Terms &amp; Conditions</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#">Support Policy</a>
+                                </li>
+                                <li>
+                                    <a href="#">Refund Policy</a>
+                                </li>
+                                <li>
+                                    <a href="#">FAQs</a>
+                                </li>
+                                <li>
+                                    <a href="#">Buyers Faq</a>
+                                </li>
+                                <li>
+                                    <a href="#">Sellers Faq</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- end /.footer-menu -->
+                    </div>
+                    <!-- Ends: .footer-widget -->
+                </div>
+                <!-- Ends: .col-lg-3 -->
+            </div>
+            <!-- end /.row -->
+        </div>
+        <!-- end /.container -->
+    </div>
+    <!-- end /.footer-big -->
+
+    <div class="mini-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright-text">
+                        <p>
+                            © 2018 <a href="#">DigiPro</a>. All rights
+                            reserved. Created by
+                            <a href="#">AazzTech</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+    crossorigin="anonymous"
+></script>
+
+<script type="text/javascript" src="{{asset('assets/js/details/rAF.js')}}"></script>
+<script
+    type="text/javascript"
+    src="{{asset('assets/js/details/ResizeSensor.js')}}"
+></script>
+<script
+    type="text/javascript"
+    src="{{asset('assets/js/details/sticky-sidebar.js')}}"
+></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+<!-- or -->
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script type="text/javascript">
+    var stickySidebar = new StickySidebar("#sidebar", {
+        topSpacing: 20,
+        bottomSpacing: 20,
+        containerSelector: ".container",
+        innerWrapperSelector: ".sidebar__inner",
+    });
+    $(".grid").masonry({
+        // options...
+        itemSelector: ".grid-item",
+        columnWidth: 200,
+    });
+</script>
+</body>
+</html>

@@ -43,6 +43,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('display_product') }}">{{ __('Display') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home-banner.index') }}">{{ __('Home banner') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('details-banner.index') }}">{{ __('Details Bnner') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

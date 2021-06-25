@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->paginate(10);
+        $products = Product::with('category')->paginate(5);
 
         return view('product.index', compact('products'));
     }
@@ -44,7 +44,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'category_id' => 'required',
-            'upload_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required',
         ]);
 
@@ -120,6 +120,13 @@ class ProductController extends Controller
             $this->unlink_file($product->image);
             $product->image = $request->file('image')->store('public/category_image');
         }
+        $counter = count($request->attribute_name);
+        for ($i = 0 ; $i<$counter; $i++){
+            $attribute_name_array[] = $request->attribute_name[$i];
+            $attribute_value_array[$request->attribute_name[$i]] = $request->attribute_value[$i];
+        }
+        $product->attribute_name = json_encode($attribute_name_array);
+        $product->attribute_value = json_encode($attribute_value_array);
         $product->category_id = $request->category_id;
         $product->description = $request->description;
         $product->save();

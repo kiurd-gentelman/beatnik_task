@@ -115,7 +115,7 @@
                     '<tr class="cloning_row" id="' + numberIncr + '">' +
                     '<td><button type="button" class="btn btn-danger btn-sm delegated-btn">x</button></td>' +
                     '<td><input type="text" name="attribute_name[' + numberIncr + ']" class="product_name form-control"></td>' +
-                    '<td><input type="number" name="attribute_value[' + numberIncr + ']" step="0.01" class="quantity form-control"></td>' +
+                    '<td><input type="text" name="attribute_value[' + numberIncr + ']" step="0.01" class="quantity form-control"></td>' +
                     '</tr>'));
                 // trCount++
             });
